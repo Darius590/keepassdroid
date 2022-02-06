@@ -72,6 +72,7 @@ public abstract class EntryEditActivity extends LockCloseHideActivity {
 
 	protected PwEntry mEntry;
 	private boolean mShowPassword = false;
+	private boolean mWordGenerator = false;
 	protected boolean mIsNew;
 	protected int mSelectedIconID = -1;
 	
@@ -115,6 +116,7 @@ public abstract class EntryEditActivity extends LockCloseHideActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		mShowPassword = ! prefs.getBoolean(getString(R.string.maskpass_key), getResources().getBoolean(R.bool.maskpass_default));
+		mWordGenerator = prefs.getBoolean(getString(R.string.word_generator_key), getResources().getBoolean(R.bool.word_generator_default));
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.entry_edit);
@@ -166,7 +168,11 @@ public abstract class EntryEditActivity extends LockCloseHideActivity {
 		generatePassword.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				GeneratePasswordActivity.Launch(EntryEditActivity.this);
+				if(mWordGenerator) {
+					GenerateWordPasswordActivity.Launch(EntryEditActivity.this);
+				} else {
+					GeneratePasswordActivity.Launch(EntryEditActivity.this);
+				}
 			}
 		});
 		

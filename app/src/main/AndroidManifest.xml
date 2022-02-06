@@ -116,6 +116,8 @@
             android:theme="@style/NoTitleBar"></activity>
         <activity android:name="com.keepassdroid.GeneratePasswordActivity"
             android:theme="@style/NoTitleBar"></activity>
+        <activity android:name="com.keepassdroid.GenerateWordPasswordActivity"
+            android:theme="@style/NoTitleBar"></activity>
         <meta-data android:name="com.a0soft.gphone.aTrackDog.webURL" android:value="http://keepassdroid.com" />
         <meta-data android:name="com.sec.android.support.multiwindow" android:value="true" />
     </application>

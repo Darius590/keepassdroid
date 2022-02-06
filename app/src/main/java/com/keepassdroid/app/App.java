@@ -32,6 +32,7 @@ import com.keepassdroid.compat.PRNGFixes;
 import com.keepassdroid.fileselect.RecentFileHistory;
 import com.keepassdroid.intents.Intents;
 
+import org.json.JSONArray;
 import java.util.Calendar;
 
 public class App extends Application {
@@ -40,6 +41,7 @@ public class App extends Application {
 	private static Calendar calendar = null;
 	private static RecentFileHistory fileHistory = null;
 	private static final String TAG = "KeePassDroid Timer";
+	private static JSONArray words;
 
 	private BroadcastReceiver mIntentReceiver;
 
@@ -119,5 +121,15 @@ public class App extends Application {
 
 		unregisterReceiver(mIntentReceiver);
 		super.onTerminate();
+	}
+
+	public static JSONArray getWords()
+	{
+		return words;
+	}
+
+	public static void setWords(JSONArray w)
+	{
+		words = w;
 	}
 }

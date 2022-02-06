@@ -20,17 +20,35 @@
 <PreferenceScreen
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:android="http://schemas.android.com/apk/res/android">
+	<ListPreference
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:defaultValue="@string/list_size_default"
+		app:dialogTitle="@string/list_size_summary"
+		app:entries="@array/list_size_options"
+		app:entryValues="@array/list_size_values"
+		app:key="@string/list_size_key"
+		app:summary="@string/list_size_summary"
+		app:title="@string/list_size_title" />
+	<CheckBoxPreference
+		app:defaultValue="@bool/keyfile_default"
+		app:dependency="@string/recentfile_key"
+		app:key="@string/keyfile_key"
+		app:summary="@string/remember_keyfile_summary"
+		app:title="@string/remember_keyfile_title" />
 	<CheckBoxPreference
 	  app:summary="@string/recentfile_summary"
 	  app:defaultValue="@bool/recentfile_default"
 	  app:title="@string/recentfile_title"
 	  app:key="@string/recentfile_key"/>
-	<CheckBoxPreference
-		app:key="@string/keyfile_key"
-		app:title="@string/remember_keyfile_title"
-		app:summary="@string/remember_keyfile_summary"
-		app:dependency="@string/recentfile_key"
-		app:defaultValue="@bool/keyfile_default"/>
+	<ListPreference
+		app:defaultValue="@string/clipboard_timeout_default"
+		app:dialogTitle="@string/app_timeout"
+		app:entries="@array/clipboard_timeout_options"
+		app:entryValues="@array/clipboard_timeout_values"
+		app:key="@string/app_timeout_key"
+		app:summary="@string/app_timeout_summary"
+		app:title="@string/app_timeout" />
 	<ListPreference
 	  app:key="@string/clipboard_timeout_key"
 	  app:title="@string/clipboard_timeout"
@@ -39,27 +57,34 @@
 	  app:entryValues="@array/clipboard_timeout_values"
 	  app:dialogTitle="@string/clipboard_timeout"
 	  app:defaultValue="@string/clipboard_timeout_default"/>
-	<ListPreference
-	  app:key="@string/app_timeout_key"
-	  app:title="@string/app_timeout"
-	  app:summary="@string/app_timeout_summary"
-	  app:entries="@array/clipboard_timeout_options"
-	  app:entryValues="@array/clipboard_timeout_values"
-	  app:dialogTitle="@string/app_timeout"
-	  app:defaultValue="@string/clipboard_timeout_default"/>
 	<CheckBoxPreference
-	  app:key="@string/maskpass_key"
-	  app:title="@string/maskpass_title"
-	  app:summary="@string/maskpass_summary"
-	  app:defaultValue="@bool/maskpass_default"/>
+		app:defaultValue="@bool/maskpass_default"
+		app:key="@string/maskpass_key"
+		app:summary="@string/maskpass_summary"
+		app:title="@string/maskpass_title" />
+	<CheckBoxPreference
+		app:defaultValue="@bool/word_generator_default"
+		app:key="@string/word_generator_key"
+		app:summary="@string/word_generator_summary"
+		app:title="@string/word_generator_title" />
 	<ListPreference
-	  app:key="@string/list_size_key"
-	  app:title="@string/list_size_title"
-	  app:summary="@string/list_size_summary"
-	  app:entries="@array/list_size_options"
-	  app:entryValues="@array/list_size_values"
-	  app:dialogTitle="@string/list_size_summary"
-	  app:defaultValue="@string/list_size_default"/>
+		app:defaultValue="@string/list_size_default"
+		app:dialogTitle="@string/list_size_summary"
+		app:entries="@array/list_size_options"
+		app:entryValues="@array/list_size_values"
+		app:key="@string/list_size_key"
+		app:summary="@string/list_size_summary"
+		app:title="@string/list_size_title" />
+	<ListPreference
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:defaultValue="@string/list_size_default"
+		app:dialogTitle="@string/list_size_summary"
+		app:entries="@array/list_size_options"
+		app:entryValues="@array/list_size_values"
+		app:key="@string/list_size_key"
+		app:summary="@string/list_size_summary"
+		app:title="@string/list_size_title" />
 	<CheckBoxPreference
 	  app:summary="@string/omitbackup_summary"
 	  app:defaultValue="@bool/omitbackup_default"

@@ -30,6 +30,9 @@
     <string name="twitter">twitter.com/bpellin</string>
     
     <!--  Password generator -->
+    <string name="generate_2">2</string>
+    <string name="generate_3">3</string>
+    <string name="generate_4">4</string>
     <string name="generate_6">6</string>
     <string name="generate_8">8</string>
     <string name="generate_12">12</string>
@@ -45,7 +48,8 @@
     <string name="roundsFix_key">roundsFix</string>
     <string name="keyfile_key">keyfile</string>
     <string name="maskpass_key">maskpass</string>
-    <string name="omitbackup_key">omitbackup</string>    
+    <string name="word_generator_key">word_generator</string>
+    <string name="omitbackup_key">omitbackup</string>
     <string name="recentfile_key">recentfile</string>    
     <string name="list_size_key">list_size</string>
     <string name="show_beta_warning">show_beta_warning</string>
@@ -55,6 +59,7 @@
     <string name="saf_key">storage_access_framework_key</string>
     <integer name="roundsFix_default">100000</integer>
     <bool name="maskpass_default">true</bool>
+    <bool name="word_generator_default">false</bool>
     <bool name="keyfile_default">true</bool>
     <bool name="sort_default">true</bool>
     <bool name="omitbackup_default">true</bool>

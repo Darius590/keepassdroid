@@ -28,6 +28,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -63,6 +64,7 @@ import com.keepassdroid.database.edit.CreateDB;
 import com.keepassdroid.database.edit.FileOnFinish;
 import com.keepassdroid.database.exception.ContentFileNotFoundException;
 import com.keepassdroid.intents.Intents;
+import com.keepassdroid.password.LoadWordList;
 import com.keepassdroid.settings.AppSettingsActivity;
 import com.keepassdroid.utils.EmptyUtils;
 import com.keepassdroid.utils.Interaction;
@@ -91,7 +93,7 @@ public class FileSelectActivity extends AppCompatActivity {
     private RecentFileHistory fileHistory;
 
     private boolean recentMode = false;
-
+    private boolean mWordGenerator = false;
 
     private void createFile(String filename) {
         // Try to create the file
@@ -150,6 +152,8 @@ public class FileSelectActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         super.onCreate(savedInstanceState);
         
         fileHistory = App.getFileHistory();
@@ -276,7 +280,6 @@ public class FileSelectActivity extends AppCompatActivity {
         registerForContextMenu(mList);
         
         // Load default database
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String fileName = prefs.getString(PasswordActivity.KEY_DEFAULT_FILENAME, "");
 
         if (fileName.length() > 0) {
@@ -302,6 +305,15 @@ public class FileSelectActivity extends AppCompatActivity {
                     // Ignore exception
                 }
             }
+        }
+
+        mWordGenerator = prefs.getBoolean(getString(R.string.word_generator_key), getResources().getBoolean(R.bool.word_generator_default));
+
+        if(mWordGenerator) {
+            Handler handler = new Handler();
+            LoadWordList task = new LoadWordList(this, new LoadWordList.AfterLoad(handler));
+            ProgressTask pt = new ProgressTask(this, task, R.string.loading_wordlist);
+            pt.run();
         }
     }
 

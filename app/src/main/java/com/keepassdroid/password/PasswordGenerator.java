@@ -20,10 +20,12 @@
 package com.keepassdroid.password;
 
 import java.security.SecureRandom;
-
 import android.content.Context;
-
 import com.android.keepass.R;
+import com.keepassdroid.app.App;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class PasswordGenerator {
 	private static final String UPPERCASE_CHARS	= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -35,11 +37,12 @@ public class PasswordGenerator {
 	private static final String SPECIAL_CHARS 	= "!\"#$%&'*+,./:;=?@\\^`";
 	private static final String BRACKET_CHARS 	= "[]{}()<>";
 
-	
+	private JSONArray words;
 	private Context cxt;
 	
 	public PasswordGenerator(Context cxt) {
 		this.cxt = cxt;
+		this.words = App.getWords();
 	}
 	
 	public String generatePassword(int length, boolean upperCase, boolean lowerCase, boolean digits, boolean minus, boolean underline, boolean space, boolean specials, boolean brackets) throws IllegalArgumentException{
@@ -105,5 +108,62 @@ public class PasswordGenerator {
 		}
 		
 		return charSet.toString();
+	}
+
+	public int calculateWordEntropy(int words, boolean camelCase, boolean digits, boolean specials) {
+		double permutations = this.words.length();
+		if(digits) { permutations = permutations * Math.pow(DIGIT_CHARS.length(), words); }
+		if(specials) { permutations = permutations * Math.pow(SPECIAL_CHARS.length(), words); }
+
+		double entropy = Math.log10(Math.pow(permutations,words)) / Math.log10(2);
+		return (int) Math.round(entropy);
+	}
+
+	public String generateWordPassword(int words, boolean camelCase, boolean digits, boolean specials) throws IllegalArgumentException{
+		// Number of words is 0 or less
+		if (words <= 0) {
+			throw new IllegalArgumentException(cxt.getString(R.string.error_wrong_length));
+		}
+		SecureRandom random = new SecureRandom(); // use more secure variant of Random!
+
+		StringBuilder buffer = new StringBuilder();
+
+		for (int i = 0; i < words; i++) {
+			String word = getRandomWord();
+
+			StringBuilder sb = new StringBuilder(word);
+
+			if(camelCase) {
+				sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+			}
+
+			if(digits)
+			{
+				sb.append(DIGIT_CHARS.charAt((char) random.nextInt(DIGIT_CHARS.length())));
+			}
+
+			if(specials)
+			{
+				sb.append(SPECIAL_CHARS.charAt((char) random.nextInt(SPECIAL_CHARS.length())));
+			}
+
+			buffer.append(sb.toString());
+		}
+
+		return buffer.toString();
+	}
+
+	private String getRandomWord() {
+		//get a random word from the json
+		SecureRandom random = new SecureRandom(); // use more secure variant of Random!
+		String randomWord = null;
+
+		try {
+			randomWord = this.words.getString(random.nextInt(this.words.length()));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return randomWord;
 	}
 }
