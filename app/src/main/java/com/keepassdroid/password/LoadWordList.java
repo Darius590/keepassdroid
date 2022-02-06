@@ -69,9 +69,18 @@ public class LoadWordList extends RunnableOnFinish {
 
             for (int i = 0; i < wordsArray.length(); ++i) {
                 String id = wordsArray.getString(i);
-                if (id.length() < 10) {
-                    filtered.put(wordsArray.get(i));
+
+                // dynamic filtering - config option?
+                if (id.length() < 4) {
+                    continue;
                 }
+
+                if (id.length() > 8) {
+                    continue;
+                }
+
+                filtered.put(wordsArray.get(i));
+
             }
 
             App.setWords(filtered);
